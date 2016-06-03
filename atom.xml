@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.smilent.me/"/>
-  <updated>2016-06-03T09:03:43.000Z</updated>
+  <updated>2016-06-03T10:27:19.000Z</updated>
   <id>http://blog.smilent.me/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Linux crontab反弹Shell</title>
+    <title>Linux crontab back Shell</title>
     <link href="http://blog.smilent.me/2016-05-25-linux-crontab-rebound-shell-hole.html"/>
     <id>http://blog.smilent.me/2016-05-25-linux-crontab-rebound-shell-hole.html</id>
     <published>2016-05-24T16:00:00.000Z</published>
-    <updated>2016-06-03T09:03:43.000Z</updated>
+    <updated>2016-06-03T10:27:19.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;0x00-前言&quot;&gt;&lt;a href=&quot;#0x00-前言&quot; class=&quot;headerlink&quot; title=&quot;0x00 前言&quot;&gt;&lt;/a&gt;0x00 前言&lt;/h3&gt;&lt;p&gt;今天测试docker remote api未授权访问漏洞的时候，在ubuntu上使用&lt;code&gt;bash&lt;/code&gt;反弹shell，一直不成功。查看&lt;code&gt;/var/log/syslog&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt; &lt;img src=&quot;http://joychou.org/usr/uploads/2016/05/1700093592.png&quot; alt=&quot;1&quot;&gt;&lt;/p&gt;
@@ -98,18 +98,18 @@
       <category term="web" scheme="http://blog.smilent.me/categories/web/"/>
     
     
-      <category term="Redis" scheme="http://blog.smilent.me/tags/Redis/"/>
-    
       <category term="Linux" scheme="http://blog.smilent.me/tags/Linux/"/>
+    
+      <category term="Redis" scheme="http://blog.smilent.me/tags/Redis/"/>
     
   </entry>
   
   <entry>
-    <title>Discuz restore 利用</title>
+    <title>Discuz restore vulnerability</title>
     <link href="http://blog.smilent.me/2015-10-16-discuz-utility-restore-vulnerability.html"/>
     <id>http://blog.smilent.me/2015-10-16-discuz-utility-restore-vulnerability.html</id>
     <published>2015-10-15T16:00:00.000Z</published>
-    <updated>2016-06-03T08:59:55.000Z</updated>
+    <updated>2016-06-03T10:27:31.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h3&gt;&lt;p&gt;restore.php 是discuz官方提供的数据恢复，该工具中存在一个可以恢复任意sql文件的漏洞，从而可以造成插入ucenter管理员帐户，获取uckey，甚至getshell的情况。&lt;br&gt;&lt;img src=&quot;http://smilent-typecho.stor.sinaapp.com/1152864778.png&quot; alt=&quot;d1.png&quot;&gt;&lt;/p&gt;
 &lt;h3 id=&quot;漏洞原理&quot;&gt;&lt;a href=&quot;#漏洞原理&quot; class=&quot;headerlink&quot; title=&quot;漏洞原理&quot;&gt;&lt;/a&gt;漏洞原理&lt;/h3&gt;&lt;p&gt;漏洞出现在&lt;br&gt;&lt;a href=&quot;http://localhost/utility/restore.php?operation=importzip&amp;amp;datafile_server={file_path}&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://localhost/utility/restore.php?operation=importzip&amp;amp;datafile_server={file_path}&lt;/a&gt;&lt;br&gt;文件&lt;code&gt;/utility/restore.php&lt;/code&gt; 142 行开始，importzip 逻辑中。&lt;br&gt;&lt;figure class=&quot;highlight php&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//line 157&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$backupdir = substr($datafile_server, &lt;span class=&quot;number&quot;&gt;8&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;13&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//....&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// line 173 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;foreach&lt;/span&gt;($unzip-&amp;gt;Entries &lt;span class=&quot;keyword&quot;&gt;as&lt;/span&gt; $entry) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(preg_match(&lt;span class=&quot;string&quot;&gt;&quot;/\.sql$/i&quot;&lt;/span&gt;, $entry-&amp;gt;Name)) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			$fp = fopen(&lt;span class=&quot;string&quot;&gt;&#39;../data/&#39;&lt;/span&gt;.$backupdir.&lt;span class=&quot;string&quot;&gt;&#39;/&#39;&lt;/span&gt;.$entry-&amp;gt;Name, &lt;span class=&quot;string&quot;&gt;&#39;w&#39;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			var_dump($fp);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			fwrite($fp, $entry-&amp;gt;Data);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			fclose($fp);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;			$sqlfilecount++;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//....&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//line 118&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;show_msg(&lt;span class=&quot;string&quot;&gt;&#39;database_import_multivol_confirm&#39;&lt;/span&gt;, $siteurl.&lt;span class=&quot;string&quot;&gt;&#39;restore.php?operation=import&amp;amp;datafile_server=&#39;&lt;/span&gt;.$datafile_vol1.&lt;span class=&quot;string&quot;&gt;&#39;&amp;amp;importsubmit=yes&amp;amp;delunzip=yes&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;confirm&#39;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
