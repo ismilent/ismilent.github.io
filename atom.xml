@@ -98,9 +98,9 @@
       <category term="web" scheme="http://blog.smilent.me/categories/web/"/>
     
     
-      <category term="Linux" scheme="http://blog.smilent.me/tags/Linux/"/>
-    
       <category term="Redis" scheme="http://blog.smilent.me/tags/Redis/"/>
+    
+      <category term="Linux" scheme="http://blog.smilent.me/tags/Linux/"/>
     
   </entry>
   
