@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.smilent.me/"/>
-  <updated>2016-06-03T10:27:19.000Z</updated>
+  <updated>2016-06-06T15:47:31.000Z</updated>
   <id>http://blog.smilent.me/</id>
   
   <author>
@@ -14,6 +14,42 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Find Domain Controller</title>
+    <link href="http://blog.smilent.me/2016-06-06-find-domain-controller.html"/>
+    <id>http://blog.smilent.me/2016-06-06-find-domain-controller.html</id>
+    <published>2016-06-05T16:00:00.000Z</published>
+    <updated>2016-06-06T15:47:31.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Find-Domain-Controller&quot;&gt;&lt;a href=&quot;#Find-Domain-Controller&quot; class=&quot;headerlink&quot; title=&quot;Find Domain Controller&quot;&gt;&lt;/a&gt;Find Domain Controller&lt;/h1&gt;&lt;h2 id=&quot;0x00-Find-domain-controller-via-DNS&quot;&gt;&lt;a href=&quot;#0x00-Find-domain-controller-via-DNS&quot; class=&quot;headerlink&quot; title=&quot;0x00 Find domain controller via DNS&quot;&gt;&lt;/a&gt;0x00 Find domain controller via DNS&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.netspi.com/5-ways-to-find-systems-running-domain-admin-processes/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://blog.netspi.com/5-ways-to-find-systems-running-domain-admin-processes/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;DC may be  the default DNS server.&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;C:\Users\dm1&amp;gt;nslookup -type=SRV _ldap._tcp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DNS request timed out.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    timeout was 2 seconds.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;服务器:  UnKnown&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Address:  192.168.72.134&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;_ldap._tcp.corp.sm.com  SRV service location:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          priority       = 0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          weight         = 100&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          port           = 389&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          svr hostname   = win-dc.corp.sm.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;win-dc.corp.sm.com      internet address = 192.168.72.134&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;or ifconfig.&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ifconfig /all&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;0x01-dsquery-with-Windows-2003&quot;&gt;&lt;a href=&quot;#0x01-dsquery-with-Windows-2003&quot; class=&quot;headerlink&quot; title=&quot;0x01 dsquery with Windows 2003&quot;&gt;&lt;/a&gt;0x01 dsquery with Windows 2003&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;dsquery computer&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;0x02-net-group&quot;&gt;&lt;a href=&quot;#0x02-net-group&quot; class=&quot;headerlink&quot; title=&quot;0x02 net group&quot;&gt;&lt;/a&gt;0x02 net group&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;`net group &amp;quot;Domain Controllers&amp;quot; /domain`&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;0x03-net-time&quot;&gt;&lt;a href=&quot;#0x03-net-time&quot; class=&quot;headerlink&quot; title=&quot;0x03 net time&quot;&gt;&lt;/a&gt;0x03 net time&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;`net time /domain`&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Find-Domain-Controller&quot;&gt;&lt;a href=&quot;#Find-Domain-Controller&quot; class=&quot;headerlink&quot; title=&quot;Find Domain Controller&quot;&gt;&lt;/a&gt;Find Domain Controll
+    
+    </summary>
+    
+      <category term="web" scheme="http://blog.smilent.me/categories/web/"/>
+    
+    
+      <category term="Pentest" scheme="http://blog.smilent.me/tags/Pentest/"/>
+    
+      <category term="Domain" scheme="http://blog.smilent.me/tags/Domain/"/>
+    
+      <category term="DC" scheme="http://blog.smilent.me/tags/DC/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux crontab back Shell</title>
@@ -98,9 +134,9 @@
       <category term="web" scheme="http://blog.smilent.me/categories/web/"/>
     
     
-      <category term="Redis" scheme="http://blog.smilent.me/tags/Redis/"/>
-    
       <category term="Linux" scheme="http://blog.smilent.me/tags/Linux/"/>
+    
+      <category term="Redis" scheme="http://blog.smilent.me/tags/Redis/"/>
     
   </entry>
   

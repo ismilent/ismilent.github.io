@@ -255,6 +255,144 @@
             
               
                 
+                <a class="post-title-link" href="/2016-06-06-find-domain-controller.html" itemprop="url">
+                  Find Domain Controller
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-06T00:00:00+08:00" content="2016-06-06">
+              2016-06-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016-06-06-find-domain-controller.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016-06-06-find-domain-controller.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016-06-06-find-domain-controller.html" class="leancloud_visitors" data-flag-title="Find Domain Controller">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Find-Domain-Controller"><a href="#Find-Domain-Controller" class="headerlink" title="Find Domain Controller"></a>Find Domain Controller</h1><h2 id="0x00-Find-domain-controller-via-DNS"><a href="#0x00-Find-domain-controller-via-DNS" class="headerlink" title="0x00 Find domain controller via DNS"></a>0x00 Find domain controller via DNS</h2><blockquote>
+<p><a href="https://blog.netspi.com/5-ways-to-find-systems-running-domain-admin-processes/" target="_blank" rel="external">https://blog.netspi.com/5-ways-to-find-systems-running-domain-admin-processes/</a></p>
+</blockquote>
+<p>DC may be  the default DNS server.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\dm1&gt;nslookup -type=SRV _ldap._tcp</span><br><span class="line"></span><br><span class="line">DNS request timed out.</span><br><span class="line"></span><br><span class="line">    timeout was 2 seconds.</span><br><span class="line"></span><br><span class="line">服务器:  UnKnown</span><br><span class="line"></span><br><span class="line">Address:  192.168.72.134</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">_ldap._tcp.corp.sm.com  SRV service location:</span><br><span class="line"></span><br><span class="line">          priority       = 0</span><br><span class="line"></span><br><span class="line">          weight         = 100</span><br><span class="line"></span><br><span class="line">          port           = 389</span><br><span class="line"></span><br><span class="line">          svr hostname   = win-dc.corp.sm.com</span><br><span class="line"></span><br><span class="line">win-dc.corp.sm.com      internet address = 192.168.72.134</span><br></pre></td></tr></table></figure>
+<p>or ifconfig.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig /all</span><br></pre></td></tr></table></figure>
+<h2 id="0x01-dsquery-with-Windows-2003"><a href="#0x01-dsquery-with-Windows-2003" class="headerlink" title="0x01 dsquery with Windows 2003"></a>0x01 dsquery with Windows 2003</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dsquery computer</span><br></pre></td></tr></table></figure>
+<h2 id="0x02-net-group"><a href="#0x02-net-group" class="headerlink" title="0x02 net group"></a>0x02 net group</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`net group &quot;Domain Controllers&quot; /domain`</span><br></pre></td></tr></table></figure>
+<h2 id="0x03-net-time"><a href="#0x03-net-time" class="headerlink" title="0x03 net time"></a>0x03 net time</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`net time /domain`</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016-05-25-linux-crontab-rebound-shell-hole.html" itemprop="url">
                   Linux crontab back Shell
                 </a>
@@ -677,7 +815,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -694,7 +832,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
