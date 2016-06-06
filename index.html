@@ -334,7 +334,7 @@
       
         
           
-            <h1 id="Find-Domain-Controller"><a href="#Find-Domain-Controller" class="headerlink" title="Find Domain Controller"></a>Find Domain Controller</h1><h2 id="0x00-Find-domain-controller-via-DNS"><a href="#0x00-Find-domain-controller-via-DNS" class="headerlink" title="0x00 Find domain controller via DNS"></a>0x00 Find domain controller via DNS</h2><blockquote>
+            <h2 id="0x00-Find-Domain-Controller-via-DNS"><a href="#0x00-Find-Domain-Controller-via-DNS" class="headerlink" title="0x00 Find Domain Controller via DNS"></a>0x00 Find Domain Controller via DNS</h2><blockquote>
 <p><a href="https://blog.netspi.com/5-ways-to-find-systems-running-domain-admin-processes/" target="_blank" rel="external">https://blog.netspi.com/5-ways-to-find-systems-running-domain-admin-processes/</a></p>
 </blockquote>
 <p>DC may be  the default DNS server.</p>
@@ -342,8 +342,8 @@
 <p>or ifconfig.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig /all</span><br></pre></td></tr></table></figure>
 <h2 id="0x01-dsquery-with-Windows-2003"><a href="#0x01-dsquery-with-Windows-2003" class="headerlink" title="0x01 dsquery with Windows 2003"></a>0x01 dsquery with Windows 2003</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dsquery computer</span><br></pre></td></tr></table></figure>
-<h2 id="0x02-net-group"><a href="#0x02-net-group" class="headerlink" title="0x02 net group"></a>0x02 net group</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`net group &quot;Domain Controllers&quot; /domain`</span><br></pre></td></tr></table></figure>
-<h2 id="0x03-net-time"><a href="#0x03-net-time" class="headerlink" title="0x03 net time"></a>0x03 net time</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`net time /domain`</span><br></pre></td></tr></table></figure>
+<h2 id="0x02-net-group"><a href="#0x02-net-group" class="headerlink" title="0x02 net group"></a>0x02 net group</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net group &quot;Domain Controllers&quot; /domain</span><br></pre></td></tr></table></figure>
+<h2 id="0x03-net-time"><a href="#0x03-net-time" class="headerlink" title="0x03 net time"></a>0x03 net time</h2><p>｀｀｀<br>net time /domain<br>```</p>
 
           
         
