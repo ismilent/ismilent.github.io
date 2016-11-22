@@ -344,12 +344,12 @@ DC may be  the default DNS server.
 <p><a href="https://blog.netspi.com/5-ways-to-find-systems-running-domain-admin-processes/" target="_blank" rel="external">https://blog.netspi.com/5-ways-to-find-systems-running-domain-admin-processes/</a></p>
 </blockquote>
 <p>DC may be  the default DNS server.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\dm1&gt;nslookup -type=SRV _ldap._tcp</span><br><span class="line"></span><br><span class="line">DNS request timed out.</span><br><span class="line"></span><br><span class="line">    timeout was 2 seconds.</span><br><span class="line"></span><br><span class="line">服务器:  UnKnown</span><br><span class="line"></span><br><span class="line">Address:  192.168.72.134</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">_ldap._tcp.corp.sm.com  SRV service location:</span><br><span class="line"></span><br><span class="line">          priority       = 0</span><br><span class="line"></span><br><span class="line">          weight         = 100</span><br><span class="line"></span><br><span class="line">          port           = 389</span><br><span class="line"></span><br><span class="line">          svr hostname   = win-dc.corp.sm.com</span><br><span class="line"></span><br><span class="line">win-dc.corp.sm.com      internet address = 192.168.72.134</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">C:\Users\dm1&gt;nslookup -type=SRV _ldap._tcp</div><div class="line"></div><div class="line">DNS request timed out.</div><div class="line"></div><div class="line">    timeout was 2 seconds.</div><div class="line"></div><div class="line">服务器:  UnKnown</div><div class="line"></div><div class="line">Address:  192.168.72.134</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">_ldap._tcp.corp.sm.com  SRV service location:</div><div class="line"></div><div class="line">          priority       = 0</div><div class="line"></div><div class="line">          weight         = 100</div><div class="line"></div><div class="line">          port           = 389</div><div class="line"></div><div class="line">          svr hostname   = win-dc.corp.sm.com</div><div class="line"></div><div class="line">win-dc.corp.sm.com      internet address = 192.168.72.134</div></pre></td></tr></table></figure>
 <p>or ifconfig.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig /all</span><br></pre></td></tr></table></figure>
-<h2 id="0x01-dsquery-with-Windows-2003"><a href="#0x01-dsquery-with-Windows-2003" class="headerlink" title="0x01 dsquery with Windows 2003"></a>0x01 dsquery with Windows 2003</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dsquery computer</span><br></pre></td></tr></table></figure>
-<h2 id="0x02-net-group"><a href="#0x02-net-group" class="headerlink" title="0x02 net group"></a>0x02 net group</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net group &quot;Domain Controllers&quot; /domain</span><br></pre></td></tr></table></figure>
-<h2 id="0x03-net-time"><a href="#0x03-net-time" class="headerlink" title="0x03 net time"></a>0x03 net time</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net time /domain</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ifconfig /all</div></pre></td></tr></table></figure>
+<h2 id="0x01-dsquery-with-Windows-2003"><a href="#0x01-dsquery-with-Windows-2003" class="headerlink" title="0x01 dsquery with Windows 2003"></a>0x01 dsquery with Windows 2003</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dsquery computer</div></pre></td></tr></table></figure>
+<h2 id="0x02-net-group"><a href="#0x02-net-group" class="headerlink" title="0x02 net group"></a>0x02 net group</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net group &quot;Domain Controllers&quot; /domain</div></pre></td></tr></table></figure>
+<h2 id="0x03-net-time"><a href="#0x03-net-time" class="headerlink" title="0x03 net time"></a>0x03 net time</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net time /domain</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -391,6 +391,10 @@ DC may be  the default DNS server.
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016-11-22-iOS-security-tricks.html" rel="prev" title="iOS Security Tricks">
+                iOS Security Tricks <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -462,7 +466,7 @@ DC may be  the default DNS server.
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -479,7 +483,7 @@ DC may be  the default DNS server.
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
